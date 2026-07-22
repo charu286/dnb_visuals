@@ -51,28 +51,19 @@ section {
    NAVBAR
 =========================== */
 
-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    background: rgba(0, 0, 0, .65);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(15px);
 }
 
 .logo {
     font-size: 28px;
     font-weight: 700;
-    color: white;
+    color: #fff;
 }
 
 .logo span {
@@ -81,11 +72,18 @@ header {
 
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
-    gap: 40px;
+    gap: 35px;
+    /* Pushes the menu to the right */
+    margin-left: auto;
+    /* Space between menu and Book Now button */
+    margin-right: 30px;
 }
 
 .nav-links a {
+    color: #fff;
+    font-weight: 500;
     transition: .3s;
 }
 
@@ -99,7 +97,7 @@ header {
     padding: 12px 28px;
     border-radius: 30px;
     font-weight: 600;
-    transition: .4s;
+    transition: .3s;
 }
 
 .btn:hover {
@@ -112,67 +110,51 @@ header {
 =========================== */
 
 .hero {
-    height: 100vh;
-    background: url("images/hero.jpeg") center/cover no-repeat;
     position: relative;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
 }
 
 .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .65);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 10;
-    max-width: 850px;
+    text-align: center;
+    color: #fff;
+    max-width: 750px;
+    padding: 20px;
 }
 
-.hero h1 {
-    font-size: 70px;
-    line-height: 1.2;
+.hero-content h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
 }
 
-.hero span {
+.hero-content span {
     color: #D4AF37;
 }
 
-.hero p {
-    margin: 30px auto;
-    color: #d6d6d6;
-    max-width: 650px;
-}
-
-.hero-btns {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.primary-btn,
-.secondary-btn {
-    padding: 15px 35px;
-    border-radius: 40px;
-    transition: .4s;
-}
-
-.primary-btn {
-    background: #D4AF37;
-    color: black;
-}
-
-.secondary-btn {
-    border: 2px solid white;
-}
-
-.primary-btn:hover,
-.secondary-btn:hover {
-    transform: translateY(-5px);
+.hero-content p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 35px;
 }
 
 
@@ -209,6 +191,13 @@ header {
 .stat h3 {
     color: #D4AF37;
     font-size: 34px;
+}
+
+.about-image img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 
@@ -257,6 +246,99 @@ header {
     color: #bdbdbd;
     font-size: 17px;
     line-height: 1.8;
+}
+
+.service-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.service-card {
+    background: #151515;
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: .4s;
+    border: 1px solid rgba(212, 175, 55, .2);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: #D4AF37;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, .15);
+}
+
+.service-card i {
+    font-size: 45px;
+    color: #D4AF37;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.service-card p {
+    color: #cfcfcf;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* ===========================
+   VIDEO SECTION
+=========================== */
+
+.video-slider {
+    padding: 80px 8%;
+    background: #0d0d0d;
+}
+
+.slider {
+    overflow: hidden;
+    position: relative;
+}
+
+.slide-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+}
+
+.video-card {
+    width: 350px;
+    margin-right: 25px;
+    background: #151515;
+    border-radius: 15px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.video-card video {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+.video-card h3 {
+    color: #fff;
+    padding: 20px;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.slide-track:hover {
+    animation-play-state: paused;
 }
 
 
@@ -434,4 +516,68 @@ footer h2 {
         flex-direction: column;
         gap: 20px;
     }
+}
+
+
+/* ===========================
+   GOOGLE REVIEWS
+=========================== */
+
+.reviews {
+    text-align: center;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.review-card {
+    background: #151515;
+    padding: 35px;
+    border-radius: 18px;
+    transition: .4s;
+    border: 1px solid transparent;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    border-color: #D4AF37;
+}
+
+.stars {
+    color: #FFD700;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.review-card p {
+    color: #cfcfcf;
+    margin-bottom: 25px;
+}
+
+.review-card h4 {
+    color: #fff;
+}
+
+.review-card span {
+    color: #D4AF37;
+    font-size: 14px;
+}
+
+.review-btn {
+    display: inline-block;
+    margin-top: 50px;
+    padding: 15px 35px;
+    background: #D4AF37;
+    color: #111;
+    border-radius: 40px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.review-btn:hover {
+    transform: translateY(-5px);
 }
