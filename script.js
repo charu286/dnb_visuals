@@ -2,18 +2,19 @@
 // MOBILE MENU
 // ===========================
 
-const menuBtn = document.querySelector(".menu-btn");
+const menu = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
-if (menuBtn) {
+menu.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
 
-    menuBtn.addEventListener("click", () => {
-
-        navLinks.classList.toggle("active");
-
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
     });
+});
 
-}
 
 // ===========================
 // STICKY NAVBAR
@@ -23,13 +24,13 @@ const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 50) {
+    if (navbar) {
 
-        navbar.classList.add("sticky");
-
-    } else {
-
-        navbar.classList.remove("sticky");
+        if (window.scrollY > 50) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
 
     }
 
@@ -40,7 +41,6 @@ window.addEventListener("scroll", () => {
 // ===========================
 
 const sections = document.querySelectorAll("section");
-
 const navItems = document.querySelectorAll(".nav-links a");
 
 window.addEventListener("scroll", () => {
@@ -49,11 +49,11 @@ window.addEventListener("scroll", () => {
 
     sections.forEach(section => {
 
-        const sectionTop = section.offsetTop - 120;
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.offsetHeight;
 
-        const sectionHeight = section.clientHeight;
-
-        if (pageYOffset >= sectionTop) {
+        if (window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight) {
 
             current = section.getAttribute("id");
 
@@ -65,10 +65,8 @@ window.addEventListener("scroll", () => {
 
         link.classList.remove("active");
 
-        if (link.getAttribute("href") == "#" + current) {
-
+        if (link.getAttribute("href") === "#" + current) {
             link.classList.add("active");
-
         }
 
     });
@@ -79,7 +77,11 @@ window.addEventListener("scroll", () => {
 // SCROLL ANIMATION
 // ===========================
 
-const observer = new IntersectionObserver((entries) => {
+const hiddenElements = document.querySelectorAll(
+    ".about, .services, .portfolio, .why, .testimonial, .contact"
+);
+
+const revealObserver = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
 
@@ -92,20 +94,15 @@ const observer = new IntersectionObserver((entries) => {
     });
 
 }, {
+
     threshold: 0.2
+
 });
-
-const hiddenElements = document.querySelectorAll(
-
-    ".about, .services, .why, .testimonial, .contact"
-
-);
 
 hiddenElements.forEach(el => {
 
     el.classList.add("hidden");
-
-    observer.observe(el);
+    revealObserver.observe(el);
 
 });
 
@@ -130,16 +127,18 @@ if (form) {
 }
 
 // ===========================
-// SMOOTH BUTTON ANIMATION
+// BUTTON HOVER
 // ===========================
 
-const buttons = document.querySelectorAll("button,.btn,.primary-btn,.secondary-btn");
+const buttons = document.querySelectorAll(
+    "button,.btn,.primary-btn,.secondary-btn"
+);
 
 buttons.forEach(btn => {
 
     btn.addEventListener("mouseenter", () => {
 
-        btn.style.transform = "translateY(-5px) scale(1.03)";
+        btn.style.transform = "translateY(-4px)";
 
     });
 
@@ -148,5 +147,58 @@ buttons.forEach(btn => {
         btn.style.transform = "translateY(0)";
 
     });
+
+});
+
+// ===========================
+// COUNTER ANIMATION
+// ===========================
+
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            const counter = entry.target;
+            const target = +counter.dataset.target;
+
+            let current = 0;
+
+            const increment = Math.max(1, Math.ceil(target / 80));
+
+            function update() {
+
+                current += increment;
+
+                if (current < target) {
+
+                    counter.innerText = current;
+
+                    requestAnimationFrame(update);
+
+                } else {
+
+                    counter.innerText = target + "+";
+
+                }
+
+            }
+
+            update();
+
+            counterObserver.unobserve(counter);
+
+        }
+
+    });
+
+}, { threshold: 0.5 });
+
+counters.forEach(counter => {
+
+    counterObserver.observe(counter);
 
 });
