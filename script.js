@@ -110,21 +110,33 @@ hiddenElements.forEach(el => {
 // CONTACT FORM
 // ===========================
 
-const form = document.querySelector("form");
+document.getElementById("whatsappForm").addEventListener("submit", function(e) {
 
-if (form) {
+    e.preventDefault();
 
-    form.addEventListener("submit", (e) => {
+    let name = document.getElementById("name").value;
 
-        e.preventDefault();
+    let email = document.getElementById("email").value;
 
-        alert("Thank you! We'll contact you soon.");
+    let phone = document.getElementById("phone").value;
 
-        form.reset();
+    let service = document.getElementById("service").value;
 
-    });
+    let message = document.getElementById("message").value;
 
-}
+    let text = `Hello DNB Visuals!
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Service: ${service}
+
+Project:
+${message}`;
+
+    window.open(`https://wa.me/919079847620?text=${encodeURIComponent(text)}`);
+
+});
 
 // ===========================
 // BUTTON HOVER
